@@ -1,0 +1,284 @@
+package MainPackage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import IOPackage.GestioCSV;
+import PersonaPackage.Persona;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// ACCIONS
+		iniciar();
+
+	}
+
+	private static void iniciar() {
+		// DEFINICIO VARIABLES
+		boolean sortir = false;
+		byte opcio = -1;
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		// 1) Es llegeix el csv de persones
+		try {
+			persones.addAll(gestioCSV.llegirCSV());
+
+			do {
+				// 2) Crida al menú principal
+				opcio = gestioMenuPrincipal();
+
+				// 3) Control si hi ha persones x mostrar
+				opcio = (persones.size() > 0 || opcio == 0 || opcio == 1) ? opcio : 100;
+
+				// 4) Gestió opció seleccionada
+				switch (opcio) {
+				case 0:
+					sortir = true;
+					break;
+				case 1:
+					persones.addAll(introduirPersona(persones));
+					break;
+				case 2:
+					text = ordenarNomAZ(persones);
+					break;
+				case 3:
+					text = ordenarNomZA(persones);
+					break;
+				case 4:
+					text = ordenarCognomAZ(persones);
+					break;
+				case 5:
+					text = ordenarCognomZA(persones);
+					break;
+				case 6:
+					text = ordenardni19(persones);
+					break;
+				case 7:
+					text = ordenardni91(persones);
+					break;
+				case 100:
+					text = "No hi ha persones per mostrar.";
+					break;
+				}
+
+				// 5) S'ha de mostrar el resultat dels mètodes?
+				if (opcio != 1 & opcio != 0) {
+					ToolsGlbl.polsarTeclaPerContinuar(text);
+					System.out.println("\r\n\r\n");
+				}
+				text = "";
+
+			} while (!sortir);
+		} catch (IOException e) {
+			System.out.println("ERROR en la lectura del fitxer CSV");
+			e.printStackTrace();
+		}
+		// SORTIDA
+		System.out.println("Programa finalitzat.");
+
+	}
+
+	private static byte gestioMenuPrincipal() {
+		// DEFINICIO VARIABLES
+		byte opcio = -1;
+		String text = "";
+
+		// ACCIONS
+		// 1) Es crea el menú
+		text = "*** MENÚ PRINCIPAL ***" + "\r\n1.- Introduir persona.\r\n"
+				+ "2.- Mostrar les persones ordenades per nom (A-Z).\r\n"
+				+ "3.- Mostrar les persones ordenades per nom (Z-A).\r\n"
+				+ "4.- Mostrar les persones ordenades per cognoms (A-Z).\r\n"
+				+ "5.- Mostrar les persones ordenades per cognoms (Z-A).\r\n"
+				+ "6.- Mostrar les persones ordenades per DNI (1-9).\r\n"
+				+ "7.- Mostrar les persones ordenades per DNI (9-1).\r\n" + "0.- Sortir.\r\n\r\n"
+				+ "Selecciona una de les opcions";
+
+		// 2) Usuari entra opció
+		opcio = (byte) ToolsGlbl.Scanner_int(text, 0, 8);
+
+		// SORTIDA
+		return opcio;
+
+	}
+
+	private static ArrayList<Persona> introduirPersona(ArrayList<Persona> persones) {
+		// DEFINICIO VARIABLES
+		String text = "", nom = "", cognom = "", dni = "";
+		Persona persona;
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		try {
+			// 1) Es demana les dades de de la nova persona
+			nom = ToolsGlbl.Scanner_strg("\r\nOPCIÓ 1: Introduir Persona.\r\nIntroduïu el nom de la persona...", false);
+			cognom = ToolsGlbl.Scanner_strg("Introduïu el cognom de la persona...", true);
+			dni = ToolsGlbl.Scanner_strg("Introduïu el dni de la persona...", false);
+
+			// 2) Es crea la persona
+			persona = new Persona(nom, cognom, dni);
+
+			// 3) Es comprova si la persona ja existeix en la llista (amb el DNI)
+			if (!persones.contains(persona)) {
+				// 4) Es guarda en l'arxiu CSV
+				gestioCSV.escriureCSV(persona);
+
+				// 5) Es guarda en la llista local				
+				persones.add(persona);
+
+				// 6) Persona introduida correctament
+				text = "Persona introduida correctament!";
+			} else {
+				text = String.format("La persona amb DNI '%s' ja està en la llista.", persona.getDni());
+			}
+
+		} catch (IOException e) {
+			text = "Error indeterminat en l'escriputra del fitxer.";
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+		return persones;
+
+	}
+
+	private static String ordenarNomAZ(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 2: Mostrar les persones ordenades per nom (A - Z).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getNom));
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+
+	}
+
+	private static String ordenarNomZA(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 3: Mostrar les persones ordenades per nom (Z - A).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getNom));
+		Collections.reverse(personesIn);
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+
+	}
+
+	private static String ordenarCognomAZ(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 4: Mostrar les persones ordenades per cognom (A - Z).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getCognom));
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+
+	}
+
+	private static String ordenarCognomZA(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 5: Mostrar les persones ordenades per cognom (Z - A).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getCognom));
+		Collections.reverse(personesIn);
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+	}
+
+	private static String ordenardni19(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 6: Mostrar les persones ordenades per DNI (1-9).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getDni));
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+
+	}
+
+	private static String ordenardni91(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 7: Mostrar les persones ordenades per DNI (9-1).\r\n";
+
+		// 1) S'ordena la llista
+		Collections.sort(personesIn, Comparator.comparing(Persona::getDni));
+		Collections.reverse(personesIn);
+
+		// 2) Es mostren els resultats
+		text = text + llistaPersones(personesIn);
+
+		// SORTIDA
+		return text;
+
+	}
+
+	/**
+	 * Mètode per crear un string amb la llista de persones.
+	 * 
+	 * @param personesIn ArrayList<Persona> que s'han de mostrar
+	 * @return un string amb la llista de persones
+	 */
+	private static String llistaPersones(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		// 1) Capçalera
+		text = String.format("%-15s%-20s%s", "__Nom__", "__Cognom__", "__NIF__");
+		// 2) Persones
+		for (Persona persona : personesIn) {
+			text = String.format("%s\r\n%-15s%-20s%s", text, persona.getNom(), persona.getCognom(), persona.getDni());
+		}
+
+		// SORTIDA
+		return text;
+
+	}
+
+}

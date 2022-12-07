@@ -1,0 +1,45 @@
+package MainPackage;
+
+import java.util.HashSet;
+
+import RestarantPackage.Restaurant;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIÓ DE VARIABLES
+		HashSet<Restaurant> restaurants = new HashSet<Restaurant>();
+		
+		// ACCIONS
+		// 1) Crida al mètode per tenir ja algun restaurant
+		restaurants = Inicialitzar();
+		
+		// 2) 
+		System.out.println(restaurants);
+		
+		
+		// SORTIDA
+		
+		
+	}
+
+	private static HashSet<Restaurant> Inicialitzar() {
+		// DEFINICIO VARIABLES
+		HashSet<Restaurant> myRestaurants;
+		Restaurant restaurant;
+
+		
+		// ACCIONS
+		myRestaurants = new HashSet<Restaurant>();		
+		myRestaurants.add(restaurant = new Restaurant("La cabra maldita", 7));
+		myRestaurants.add(restaurant = new Restaurant("La croqueta petra", 6));
+		myRestaurants.add(restaurant = new Restaurant("Entra y no saldrás", 9));
+		myRestaurants.add(restaurant = new Restaurant("El pescado mareado", 8));		
+		
+
+		// SORTIDA
+		return myRestaurants;
+
+	}
+	
+}

@@ -1,0 +1,62 @@
+package MainPackage;
+
+import java.util.HashSet;
+
+import RestarantPackage.Restaurant;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIÓ DE VARIABLES
+		HashSet<Restaurant> restaurants = new HashSet<Restaurant>();		
+		
+		// ACCIONS
+		/* Crida al mètode per tenir ja algun restaurant en la llista i no 
+		haver-los de picar*/
+		restaurants.addAll(Inicialitzar());
+		
+		System.out.println("*** LLISTA DE RESTAURANTS ***");
+		MySyso(restaurants);
+		
+		System.out.println("\r\n*** NO ES POT AFEGIR RESTAURANTS IGUALS PERÒ SÍ AMB PUNTUACIÓ DIFERENT ***");
+		restaurants.add(new Restaurant("Entra y no saldrás", 9));
+		restaurants.add(new Restaurant("Casa Pepe", 9));
+		
+		MySyso(restaurants);
+		
+		// SORTIDA
+		
+		
+	}
+
+	private static void MySyso(HashSet<Restaurant> restaurants) {
+		String text = "";
+		
+		for (Restaurant restaurant : restaurants) {
+			text =String.format("%s\r\nNom: %s; Puntuació: %s",text, 
+					restaurant.getNom(), restaurant.getPuntuacio());	
+		}
+		System.out.println(text);
+	}
+	
+	private static HashSet<Restaurant> Inicialitzar() {
+		// DEFINICIO VARIABLES
+		HashSet<Restaurant> myRestaurants;
+		Restaurant restaurant;
+
+		
+		// ACCIONS
+		myRestaurants = new HashSet<Restaurant>();		
+		myRestaurants.add(restaurant = new Restaurant("La cabra maldita", 7));
+		myRestaurants.add(restaurant = new Restaurant("La croqueta petra", 6));
+		myRestaurants.add(restaurant = new Restaurant("Entra y no saldrás", 9));
+		myRestaurants.add(restaurant = new Restaurant("El pescado mareado", 8));
+		myRestaurants.add(restaurant = new Restaurant("Casa Pepe", 8));
+		
+
+		// SORTIDA
+		return myRestaurants;
+
+	}
+	
+}

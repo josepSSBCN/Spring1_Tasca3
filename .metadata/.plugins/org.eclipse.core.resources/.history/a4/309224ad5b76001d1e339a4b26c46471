@@ -1,0 +1,8 @@
+package ExcepcionsPackage;
+
+public class ErrorFitxerPaissos extends Exception {
+	public ErrorFitxerPaissos(String problema) {
+		super("ERROR! Hi hagut un problema amb el fitxer dels països i el joc no pot començar!"
+				+ "\r\n Codi error: " + problema + ".");
+	}
+}

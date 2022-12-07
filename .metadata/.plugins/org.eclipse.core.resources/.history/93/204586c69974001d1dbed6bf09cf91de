@@ -1,0 +1,29 @@
+package MainPackage;
+
+import java.util.HashMap;
+
+import IOPackage.ReadFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIO VARIABLES
+		String text = "", nomUsuari = "";
+		ReadFile myReadFile;
+		HashMap<String, String> paisCapital;
+		
+
+		// ACCIONS
+		// 1) S'inicialitzen totes les variables 
+		myReadFile = new ReadFile();
+		paisCapital = myReadFile.getPaisCapital();
+		
+		// 2) Es demana el nom d'usuari
+		nomUsuari = ToolsGlbl.Scanner_strg("In trodueix el nom d'usuari:", true);
+		
+		
+		// SORTIDA
+
+
+	}
+}

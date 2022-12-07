@@ -1,0 +1,17 @@
+package ClassPackage;
+
+public class Month {
+	// ATRIBUTS
+	protected String Name;
+
+	
+	// GETTERS & SETTERS
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
+
+}

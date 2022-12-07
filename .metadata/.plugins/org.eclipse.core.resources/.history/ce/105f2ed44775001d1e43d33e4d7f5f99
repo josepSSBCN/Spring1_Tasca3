@@ -1,0 +1,20 @@
+package IOPackage;
+
+import java.util.ArrayList;
+
+import PersonaPackage.Persona;
+
+public class ReadCSV {
+	// ATRIBUTS
+	ArrayList<Persona> persones;
+	
+	// CONSTRUCTORA
+	public ReadCSV() {
+		persones = ArrayList<Persona>();
+	}
+	
+	// GETTERS & SETTERS
+	
+	// METODES
+
+}

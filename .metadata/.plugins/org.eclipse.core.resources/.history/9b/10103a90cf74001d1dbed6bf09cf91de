@@ -1,0 +1,78 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import ClassPackage.Month;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ArrayList<Month> mesosAny = new ArrayList<Month>();
+		HashSet<Month> mesosAnyHashSet;
+		Month mes;
+
+		System.out.println("***AFEGIR AGOST EN EL SEU LLOC***");
+		mesosAny.add(mes = new Month("Gener"));
+		mesosAny.add(mes = new Month("Febrer"));
+		mesosAny.add(mes = new Month("Març"));
+		mesosAny.add(mes = new Month("Abril"));
+		mesosAny.add(mes = new Month("Maig"));
+		mesosAny.add(mes = new Month("Juny"));
+		mesosAny.add(mes = new Month("Juliol"));
+		mesosAny.add(mes = new Month("Setembre"));
+		mesosAny.add(mes = new Month("Octubre"));
+		mesosAny.add(mes = new Month("Novembre"));
+		mesosAny.add(mes = new Month("Decembre"));
+
+		////*System.out.println(mesosAny);
+		RecorrerFor(mesosAny);
+		System.out.println("S'afegeix l'Agost en el seu lloc...");
+		
+		mesosAny.add(7, mes = new Month("Agost"));
+		
+		RecorreIterator(mesosAny);
+		 
+		System.out.println("\r\n***CONVERSIÓ EN HASHSET***");
+		mesosAnyHashSet = new HashSet<Month>(mesosAny);
+		RecorrerFor(mesosAnyHashSet);
+		System.out.println("\r\nNo es pot afegir duplicats, no dona error.");
+		mesosAnyHashSet.add(mes = new Month("Febrer"));
+		RecorreIterator(mesosAnyHashSet);
+		System.out.println("\r\nPerò sí altres elements (Hola).");
+		mesosAnyHashSet.add(mes = new Month("Hola"));
+		RecorrerFor(mesosAnyHashSet);
+		System.out.println("\r\nSi la col·leció té un duplicat, no s'afegeix");
+		mesosAny.add(1,mes = new Month("Febrer"));
+		RecorreIterator(mesosAny);
+		mesosAnyHashSet = new HashSet<Month>(mesosAny);
+		RecorrerFor(mesosAnyHashSet);
+				
+	}
+
+	private static void RecorrerFor(Collection<Month> c) {
+		String text ="";
+		for (Month object : c) {
+			text = text + object.getName() + " ";
+		}
+		System.out.println(text);
+	}
+		
+	
+	private static void RecorreIterator(Collection<Month> c) {
+		// DEFINICIÓ VARIABLES
+		String text = "";
+		
+		//ACCIONS
+		for (Iterator iterator = c.iterator(); iterator.hasNext();) {
+			Month month = (Month) iterator.next();
+			text = String.format("%s%s ", text, month.getName());
+		}
+		
+		// SORTIDA
+		System.out.println(text);
+	}
+	
+}

@@ -1,0 +1,43 @@
+package MainPackage;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ArrayList<String> mesosAny = new ArrayList<String>();
+		HashSet<String> mesosAnyHashSet; 
+
+		System.out.println("***AFEGIR AGOST EN EL SEU LLOC***");
+		mesosAny.add("Gener");
+		mesosAny.add("Febrer");
+		mesosAny.add("Març");
+		mesosAny.add("Abril");
+		mesosAny.add("Maig");
+		mesosAny.add("Juny");
+		mesosAny.add("Juliol");
+		mesosAny.add("Setembre");
+		mesosAny.add("Octubre");
+		mesosAny.add("Novembre");
+		mesosAny.add("Decembre");
+
+		System.out.println(mesosAny);
+		System.out.println("S'afegeix l'Agost en el seu lloc...");
+		
+		mesosAny.add(7, "Agost");
+		
+		System.out.println(mesosAny);
+		 
+		System.out.println("***CONVERSIÓ EN HASHSET***");
+		mesosAnyHashSet = new HashSet<String>(mesosAny);		
+		System.out.println(mesosAnyHashSet);
+		mesosAnyHashSet.add("Febrer");
+		mesosAnyHashSet.add("Hola");
+		System.out.println(mesosAnyHashSet);
+		mesosAny.add(1,"Febrer");
+		System.out.println(mesosAny);
+
+	}
+}

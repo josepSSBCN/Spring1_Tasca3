@@ -1,0 +1,8 @@
+package ExcepcionsPackage;
+
+public class NoExisteixFitxer extends Exception {
+	public NoExisteixFitxer() {
+		super("ERROR! El fitxer dels països no existeix i el joc no pot començar!");
+	}
+
+}

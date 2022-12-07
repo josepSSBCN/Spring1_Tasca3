@@ -1,0 +1,25 @@
+package MainPackage;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+
+	public static void main(String[] args) {
+		List<Integer> intList = new ArrayList<Integer>();
+		List<Integer> intList2 = new ArrayList<Integer>();
+
+		
+		Collections.addAll(intList, 9,0,8,1,7,2,6,3,5,4);
+		System.out.println(String.format("Llista original: %s", intList));
+		intList2.addAll(intList);
+		Collections.reverse(intList2);
+		System.out.println(String.format("Llista copia ordenada del reves: %s", intList2));
+		
+		
+
+	}
+
+}

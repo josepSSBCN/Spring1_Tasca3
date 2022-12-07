@@ -1,0 +1,55 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+
+import RestarantPackage.Restaurant;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIÓ DE VARIABLES
+		String text = "";
+		ArrayList<Restaurant> rests;
+		HashSet<Restaurant> restaurants = new HashSet<Restaurant>();
+
+		// ACCIONS
+		restaurants.add(new Restaurant("La cabra maldita", 7));
+		restaurants.add(new Restaurant("La croqueta petra", 6));
+		restaurants.add(new Restaurant("Entra y no saldrás", 9));
+		restaurants.add(new Restaurant("El pescado mareado", 8));
+		restaurants.add(new Restaurant("Casa Pepe", 8));
+		restaurants.add(new Restaurant("Casa Pepe", 9));
+
+		System.out.println("*** ESTAT INICIAL DE LA LLISTA ***");
+		for (Restaurant restaurant : restaurants) {
+			text = String.format("%sNom: %-20s Puntuació: %s\r\n", text, restaurant.getNom(),
+					restaurant.getPuntuacio());
+		}
+		System.out.println(text);
+
+		restaurants.stream().forEach(e -> String.format("Nom: %-10s Puntuació: %s", e.getNom(), e.getPuntuacio()));
+
+		System.out.println("\r\n*** LLISTA ORDENADA ***");
+		rests = new ArrayList<Restaurant>(restaurants);
+		Collections.sort(rests, Comparator.comparing((Restaurant::getNom)));
+		rests.stream().forEach(
+				e -> System.out.println(String.format("Nom: %s; Puntuació: %s", e.getNom(), e.getPuntuacio())));
+
+	}
+
+	private static void mySyso(Collection<Restaurant> restaurants) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+
+		// SORTIDA
+		System.out.println(text);
+
+	}
+
+}

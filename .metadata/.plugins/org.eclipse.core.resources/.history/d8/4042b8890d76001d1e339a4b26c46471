@@ -1,0 +1,99 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+
+import ClassPackage.Month;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ArrayList<Month> mesosAny = new ArrayList<Month>();
+		HashSet<Month> mesosAnyHashSet;
+
+		System.out.println("***AFEGIR AGOST EN EL SEU LLOC***");
+		mesosAny.add(new Month("Gener"));
+		mesosAny.add(new Month("Febrer"));
+		mesosAny.add(new Month("Març"));
+		mesosAny.add(new Month("Abril"));
+		mesosAny.add(new Month("Maig"));
+		mesosAny.add(new Month("Juny"));
+		mesosAny.add(new Month("Juliol"));
+		mesosAny.add(new Month("Setembre"));
+		mesosAny.add(new Month("Octubre"));
+		mesosAny.add(new Month("Novembre"));
+		mesosAny.add(new Month("Decembre"));
+		
+		
+		recorrerFor(mesosAny);
+		
+		System.out.println("S'afegeix l'Agost en el seu lloc...");
+		
+		mesosAny.add(7, new Month("Agost"));
+		
+		recorreIterator(mesosAny);
+		 
+		System.out.println("\r\n***CONVERSIÓ EN HASHSET***");
+		mesosAnyHashSet = new HashSet<Month>(mesosAny);
+		recorrerFor(mesosAnyHashSet);
+		System.out.println("\r\nSi es prova d'afegir un duplicat, no l'afegeix i no dona error.");
+		mesosAnyHashSet.add(new Month("Febrer"));
+		recorreIterator(mesosAnyHashSet);
+		System.out.println("\r\nPerò sí altres elements (Hola).");
+		mesosAnyHashSet.add(new Month("Hola"));
+		recorrerFor(mesosAnyHashSet);
+		System.out.println("\r\nSi la col·leció té un duplicat, no s'afegeix");
+		mesosAny.add(1,new Month("Febrer"));
+		recorreIterator(mesosAny);		
+		mesosAnyHashSet = new HashSet<Month>(mesosAny);
+		recorrerFor(mesosAnyHashSet);
+		
+		recorrerOperacionsAgragades(mesosAny);
+				
+	}
+	
+	private static void recorrerFor(Collection<Month> c) {
+		// DEFINICIO VARIABLES
+		String text ="";
+
+		// ACCIONS
+		for (Month object : c) {
+			text = text + object.getName() + " ";
+		}
+		
+		// SORTIDA
+		System.out.println(text);
+
+	}
+			
+	private static void recorreIterator(Collection<Month> c) {
+		// DEFINICIÓ VARIABLES
+		String text = "";
+		
+		//ACCIONS
+		for (Iterator iterator = c.iterator(); iterator.hasNext();) {
+			Month month = (Month) iterator.next();
+			text = String.format("%s%s ", text, month.getName());
+		}
+		
+		// SORTIDA
+		System.out.println(text);
+	}
+
+	private static void recorrerOperacionsAgragades(Collection<Month> c) {
+		// DEFINICIO VARIABLES
+		String text ="";
+
+		// ACCIONS
+		text = c.stream()
+				.map(p -> p.getName())
+				.collect(Collectors.joining(" "));
+
+		// SORTIDA
+		System.out.println(text);
+
+	}
+}

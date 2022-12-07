@@ -1,0 +1,17 @@
+package PersonaPackage;
+
+public class Persona {
+	// ATRIBUTS
+	private String nom;
+	private String cognom;
+	private String dni;
+	
+	
+	// CONSTRUCTORA
+	private Persona(String n, String c, String dniIn)
+	
+	// GETTERS & SETTERS
+	
+	// METODES
+
+}

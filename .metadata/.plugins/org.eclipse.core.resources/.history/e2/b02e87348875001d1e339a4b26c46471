@@ -1,0 +1,64 @@
+package PersonaPackage;
+
+
+public class Persona{
+	// ATRIBUTS
+	private String nom;
+	private String cognom;
+	private String dni;
+
+	// CONSTRUCTORA
+	public Persona(String nomIn, String cognomIn, String dniIn) {
+		this.nom = nomIn;
+		this.cognom = cognomIn;
+		this.dni = dniIn;
+
+	}
+
+	// GETTERS & SETTERS
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getCognom() {
+		return cognom;
+	}
+
+	public void setCognom(String cognom) {
+		this.cognom = cognom;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	// METODES
+	@Override
+	public boolean equals(Object personaIn) {
+		// DEFINICIO VARIABLES				
+		
+		// ACCIONS
+		if(this.getDni().equals(((Persona) personaIn).getDni())) {
+			return true;
+		}else {
+			return false;
+		}
+		
+		// SORTIDA
+	}
+	
+
+		
+		
+
+	
+
+}

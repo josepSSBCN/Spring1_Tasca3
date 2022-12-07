@@ -1,0 +1,9 @@
+package ExcepcionsPackage;
+
+public class NoExisteixFitxer extends Exception{
+	// CONSTRUCTOR
+	public NoExisteixFitxer(String nomIn) {
+		super(String.format("El fitxer %s no existeix", nomIn));
+	}
+	
+}

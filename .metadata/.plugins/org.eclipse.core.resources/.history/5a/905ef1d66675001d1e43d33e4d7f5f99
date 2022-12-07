@@ -1,0 +1,347 @@
+package MainPackage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Scanner;
+
+import javax.print.CancelablePrintJob;
+
+import ExcepcionsPackage.NoExisteixFitxer;
+import IOPackage.GestioCSV;
+import PersonaPackage.Persona;
+import RestarantPackage.Restaurant;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// ACCIONS
+		iniciar();
+
+	}
+
+	private static void iniciar() {
+		// DEFINICIO VARIABLES
+		boolean sortir = false;
+		byte opcio = -1;
+
+		// ACCIONS
+		do {
+			// 1) Crida al menú principal
+			opcio = gestioMenuPrincipal();
+
+			// 2) Gestió opció seleccionada
+			switch (opcio) {
+			case 0:
+				sortir = true;
+				break;
+			case 1:
+				IntroduirPersona();
+				break;
+			case 2:
+				OrdenarNomAZ();
+				break;
+			case 3:
+				OrdenarNomZA();
+				break;
+			case 4:
+				OrdenarCognomAZ();
+				break;
+			case 5:
+				OrdenarCognomZA();
+				break;
+			case 6:
+				Ordenardni19();
+				break;
+			case 7:
+				Ordenardni91();
+				break;
+			}
+
+			System.out.println("\r\n\r\n");
+
+		} while (!sortir);
+
+		// SORTIDA
+
+	}
+
+	private static byte gestioMenuPrincipal() {
+		// DEFINICIO VARIABLES
+		byte opcio = -1;
+		String text = "";
+
+		// ACCIONS
+		// 1) Es crea el menú
+		text = "*** MENÚ PRINCIPAL ***" + "\r\n1.- Introduir persona.\r\n"
+				+ "2.- Mostrar les persones ordenades per nom (A-Z).\r\n"
+				+ "3.- Mostrar les persones ordenades per nom (Z-A).\r\n"
+				+ "4.- Mostrar les persones ordenades per cognoms (A-Z).\r\n"
+				+ "5.- Mostrar les persones ordenades per cognoms (Z-A).\r\n"
+				+ "6.- Mostrar les persones ordenades per DNI (1-9).\r\n"
+				+ "7.- Mostrar les persones ordenades per DNI (9-1).\r\n" + "0.- Sortir.\r\n\r\n"
+				+ "Selecciona una de les opcions";
+
+		// 2) Usuari entra opció
+		opcio = (byte) ToolsGlbl.Scanner_int(text, 0, 7);
+
+		// SORTIDA
+		return opcio;
+
+	}
+
+	private static void IntroduirPersona() {
+		// DEFINICIO VARIABLES
+		String text = "", nom = "", cognom = "", dni = "";
+		Persona persona;
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		try {
+			// 1) Es demana les dades de de la nova persona
+			nom = ToolsGlbl.Scanner_strg("\r\nOPCIÓ 1: Introduir Persona.\r\nIntroduïu el nom de la persona...", false);
+			cognom = ToolsGlbl.Scanner_strg("Introduïu el cognom de la persona...", true);
+			dni = ToolsGlbl.Scanner_strg("Introduïu el dni de la persona...", false);
+
+			// 2) Es crea la persona
+			persona = new Persona(nom, cognom, dni);
+
+			// 3) Es guarda en l'arxiu
+			gestioCSV.EscriureCSV(persona);
+
+			// 4) Persona introduida correctament
+			text = "Persona introduida correctament!";
+
+		} catch (IOException e) {
+			text = "Error indeterminat en l'escriputra del fitxer.";
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void OrdenarNomAZ() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 2: Mostrar les persones ordenades per nom (A - Z).\r\n";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getNom));
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = text + LlistaPersones(persones);
+			} else {
+				text = text +  "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text =  text + "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void OrdenarNomZA() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 1: Introduir Persona.";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getNom));
+			Collections.reverse(persones);
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = LlistaPersones(persones);
+			} else {
+				text = "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text = "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void OrdenarCognomAZ() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 1: Introduir Persona.";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getCognom));
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = LlistaPersones(persones);
+			} else {
+				text = "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text = "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void OrdenarCognomZA() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 1: Introduir Persona.";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getCognom));
+			Collections.reverse(persones);
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = LlistaPersones(persones);
+			} else {
+				text = "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text = "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void Ordenardni19() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 1: Introduir Persona.";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getDni));
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = LlistaPersones(persones);
+			} else {
+				text = "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text = "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+
+	}
+
+	private static void Ordenardni91() {
+		// DEFINICIO VARIABLES
+		String text = "";
+		ArrayList<Persona> persones = new ArrayList<Persona>();
+		GestioCSV gestioCSV = new GestioCSV();
+
+		// ACCIONS
+		text = "\r\n\r\nOPCIÓ 1: Introduir Persona.";
+		try {
+			// 1) Es llegeix el csv
+			gestioCSV.LlegirCSV();
+			persones.addAll(gestioCSV.getPersones());
+
+			// 2) S'ordena la llista
+			Collections.sort(persones, Comparator.comparing(Persona::getDni));
+			Collections.reverse(persones);
+
+			// 3) Es mostren els resultats
+			if (persones.size() > 0) {
+				text = LlistaPersones(persones);
+			} else {
+				text = "No hi ha persones per mostrar.";
+			}
+
+		} catch (IOException | NoExisteixFitxer e) {
+			text = "ERROR en la lectura del fitxer CSV";
+			e.printStackTrace();
+		}
+
+		// SORTIDA
+		ToolsGlbl.polsarTeclaPerContinuar(text);
+	}
+
+	/**
+	 * Mètode per crear un string amb la llista de persones.
+	 * 
+	 * @param personesIn ArrayList<Persona> que s'han de mostrar
+	 * @return un string amb la llista de persones
+	 */
+	private static String LlistaPersones(ArrayList<Persona> personesIn) {
+		// DEFINICIO VARIABLES
+		String text = "";
+
+		// ACCIONS
+		// 1) Capçalera
+		text = String.format("%-15s%-20s%s", "__Nom__", "__Cognom__", "__NIF__");
+		// 2) Persones
+		for (Persona persona : personesIn) {
+			text = String.format("%s\r\n%-15s%-20s%s", text, persona.getNom(), persona.getCognom(), persona.getDni());
+		}
+
+		// SORTIDA
+		return text;
+
+	}
+}

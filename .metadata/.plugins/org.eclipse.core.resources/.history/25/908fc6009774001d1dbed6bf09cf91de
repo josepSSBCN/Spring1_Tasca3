@@ -1,0 +1,15 @@
+package MainPackage;
+
+import IOPackage.ReadFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ReadFile myReadFile;
+		
+		myReadFile = new ReadFile();
+		
+		System.out.println(myReadFile.getStTemp());
+
+	}
+}

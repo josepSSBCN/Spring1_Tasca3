@@ -1,0 +1,40 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
+
+import IOPackage.ReadFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIO VARIABLES
+		String text = "", nomUsuari = "";
+		int numRandom;
+		ReadFile myReadFile;
+		HashMap<String, String> paisCapital;
+		ArrayList<String> paisos;
+		
+
+		// ACCIONS
+		// 1) S'inicialitzen totes les variables 
+		myReadFile = new ReadFile();
+		paisCapital = myReadFile.getPaisCapital();
+		
+		// 2) Es demana el nom d'usuari
+		nomUsuari = ToolsGlbl.Scanner_strg("Introdueix el nom d'usuari:", true);
+		
+		for (int i = 0; i < 10; i++) {
+			numRandom = ThreadLocalRandom.current().nextInt(0, paisCapital.size() - 1);
+			text = String.format("\r\nPREGUNTA %s/10:\r\nCapital de '%s'?",i+1, 
+					paisCapital.);
+			System.out.println(text);
+			
+		}
+		
+		// SORTIDA
+
+
+	}
+}

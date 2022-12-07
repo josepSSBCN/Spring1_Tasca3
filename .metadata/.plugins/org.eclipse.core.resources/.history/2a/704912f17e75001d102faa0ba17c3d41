@@ -1,0 +1,55 @@
+package RestarantPackage;
+
+import javax.naming.spi.DirStateFactory.Result;
+
+public class Restaurant implements java.lang.Comparable<Restaurant>{
+	// ATRIBUTS
+	private String nom;
+	private int puntuacio;	
+
+	// CONSTRUCTORA
+	public Restaurant(String nom, int puntuacio) {
+		super();
+		this.nom = nom;
+		this.puntuacio = puntuacio;
+	}
+	
+	// GETTERS & SETTERS
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public int getPuntuacio() {
+		return puntuacio;
+	}
+
+	public void setPuntuacio(int puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+	
+	// METODES
+	@Override
+	public int compareTo(Restaurant r) {
+		// DEFINICIO VARIABLES		
+		////*int resultat;
+		
+		// ACCIONS
+		if(this.getPuntuacio() > r.getPuntuacio()) {
+			return 1;	
+		}else if(this.getPuntuacio() < r.getPuntuacio()) {
+			return -1;
+		}else {
+			return 0;
+		}
+			
+
+		// SORTIDA
+		////*return resultat;
+
+	}
+
+}

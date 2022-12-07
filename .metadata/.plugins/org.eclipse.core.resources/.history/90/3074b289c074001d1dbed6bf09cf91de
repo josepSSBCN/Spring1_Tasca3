@@ -1,0 +1,52 @@
+package RestarantPackage;
+
+public class Restaurant {
+	// ATRIBUTS
+	private String nom;
+	private int puntuacio;	
+
+	// CONSTRUCTORA
+	public Restaurant(String nom, int puntuacio) {
+		this.nom = nom;
+		this.puntuacio = puntuacio;
+	}
+	
+	// GETTERS & SETTERS
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public int getPuntuacio() {
+		return puntuacio;
+	}
+
+	public void setPuntuacio(int puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+	
+	// METODES
+	@Override
+	public int compareTo(Restaurant r) {
+		// DEFINICIO VARIABLES		
+		int resutat;
+		
+
+		// ACCIONS
+		if(this.puntuacio > r.getPuntuacio()) {
+		resutat = 1;	
+		}else if(this.puntuacio < r.getPuntuacio()) {
+			resutat = -1;
+		}else {
+			resutat = 0;
+		}
+			
+
+		// SORTIDA
+
+	}
+
+}

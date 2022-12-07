@@ -1,0 +1,57 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.tools.Tool;
+
+import IOPackage.ReadFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIO VARIABLES		
+		int numRandom, puntuacio = 0;
+		String text = "", nomUsuari = "", resposta = "";
+		ReadFile myReadFile;
+		HashMap<String, String> paisCapital;
+		ArrayList<String> paisos;
+		
+
+		// ACCIONS
+		// 1) S'inicialitzen totes les variables
+		myReadFile = new ReadFile();
+		paisCapital = myReadFile.getPaisCapital(); 
+		paisos = new ArrayList<>();
+		paisos.addAll(paisCapital.keySet());		
+		
+		// 2) Es demana el nom d'usuari
+		nomUsuari = ToolsGlbl.Scanner_strg("Introdueix el nom d'usuari:", true);
+		
+		// 3) Es realitzen les 10 preguntes.
+		for (int i = 0; i < 10; i++) {
+			numRandom = ThreadLocalRandom.current().nextInt(0, paisCapital.size() - 1);
+			text = String.format("\r\nPREGUNTA %s/10:\r\nCapital de '%s'?",i+1, 
+					paisos.get(i));
+			
+			resposta = ToolsGlbl.Scanner_strg(text, false);
+			
+			if(paisCapital.get(paisos.get(i)) == resposta) {
+				puntuacio++;
+				text = "Resposta correcte!!";
+			}else {
+				text = "Resposta incorrecte!!";
+			}
+			
+			System.out.println("La teva puntuació és de " + puntuacio + " punts");
+		}
+		
+		
+		
+		// SORTIDA
+
+
+	}
+}

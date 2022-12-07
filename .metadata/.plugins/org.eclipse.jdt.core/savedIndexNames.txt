@@ -1,0 +1,9 @@
+INDEX VERSION 1.131+D:\IT ACADEMY\EXERCICIS\SPRINT_1\S1_03\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3855720791.index
+3604035686.index
+4150529721.index
+2463535553.index
+1852661507.index
+2094592237.index
+133579575.index

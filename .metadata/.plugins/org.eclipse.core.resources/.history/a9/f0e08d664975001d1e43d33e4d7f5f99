@@ -1,0 +1,56 @@
+package IOPackage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import PersonaPackage.Persona;
+
+public class ReadCSV {
+	// ATRIBUTS
+	private ArrayList<Persona> persones;
+	
+	// CONSTRUCTORA
+	public ReadCSV() {
+		persones = new ArrayList<Persona>();
+	}
+
+	
+	// GETTERS & SETTERS
+	public ArrayList<Persona> getPersones() {
+		return persones;
+	}
+	
+	
+	// METODES
+	public boolean LlegirCSV() {
+		// DEFINICIO VARIABLES
+		boolean resultat = false;
+		Persona persona;
+		String[] words;
+		Scanner myScanner = null;
+
+		// ACCIONS
+		
+			// 1) Es crea i es llegeix el fitxer			
+			try {
+				myScanner = new Scanner(new File("src/persones.csv"));			
+				
+				// 2) Es llegeix una per una les files
+				while(myScanner.hasNext()) {
+					words = myScanner.nextLine().split(";");
+					if(words.length == 3) {
+						persona = new Persona(words[0],words[1], words[3]);
+					}				
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		
+
+		// SORTIDA
+		return resultat;
+
+	}
+}

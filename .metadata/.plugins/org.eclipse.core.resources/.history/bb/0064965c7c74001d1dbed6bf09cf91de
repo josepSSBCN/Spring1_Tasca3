@@ -1,0 +1,16 @@
+package MainPackage;
+
+import java.util.ArrayList;
+
+public class Main {
+
+	public static void main(String[] args) {
+		ArrayList<String> mesosAny = ArrayList<String>();
+		
+		mesosAny.add("Gener", "Febrer", "Març", "Abril", "Maig", "Juny", "Juliol");
+		
+		System.out.println(mesosAny);
+
+	}
+
+}

@@ -1,0 +1,73 @@
+package MainPackage;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.TreeSet;
+
+import RestarantPackage.Restaurant;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// DEFINICIÓ DE VARIABLES
+		HashSet<Restaurant> restaurants = new HashSet<Restaurant>();
+		ArrayList<Restaurant> rests;
+		
+		// ACCIONS
+		/* Crida al mètode per tenir ja algun restaurant en la llista i no 
+		haver-los de picar*/
+		restaurants.addAll(Inicialitzar());
+		
+		System.out.println("*** ESTAT INICIAL DE LA LLISTA ***");
+		MySyso(restaurants);
+		
+		System.out.println("\r\n*** LLISTA ORDENADA ***");			
+		rests = new ArrayList<Restaurant>(restaurants);
+						
+		Collections.sort(rests, Comparator.comparing((Restaurant::getNom)));
+		
+		// SORTIDA
+		////*MySyso(rests);
+		rests.stream()
+		.forEach(e -> System.out.println(String.format("Nom: %s; Puntuació: %s", 
+					e.getNom(), e.getPuntuacio())));
+
+	}
+
+	private static void MySyso(Collection<Restaurant> restaurants) {
+		String text = "";
+		
+		for (Restaurant restaurant : restaurants) {
+			text =String.format("%sNom: %s; Puntuació: %s\r\n",text, 
+					restaurant.getNom(), restaurant.getPuntuacio());	
+		}
+		System.out.println(text);
+	}
+	
+	private static HashSet<Restaurant> Inicialitzar() {
+		// DEFINICIO VARIABLES
+		HashSet<Restaurant> myRestaurants;
+		Restaurant restaurant;
+
+		
+		// ACCIONS
+		myRestaurants = new HashSet<Restaurant>();		
+		myRestaurants.add(restaurant = new Restaurant("La cabra maldita", 7));
+		myRestaurants.add(restaurant = new Restaurant("La croqueta petra", 6));
+		myRestaurants.add(restaurant = new Restaurant("Entra y no saldrás", 9));
+		myRestaurants.add(restaurant = new Restaurant("El pescado mareado", 8));
+		myRestaurants.add(restaurant = new Restaurant("Casa Pepe", 8));
+		myRestaurants.add(restaurant = new Restaurant("Casa Pepe", 9));
+		
+
+		// SORTIDA
+		return myRestaurants;
+
+	}
+	
+}
