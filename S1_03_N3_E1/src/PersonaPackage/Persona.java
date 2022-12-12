@@ -1,5 +1,7 @@
 package PersonaPackage;
 
+import java.util.Objects;
+
 public class Persona {
 	// ATRIBUTS
 	private String nom;
@@ -38,7 +40,27 @@ public class Persona {
 		this.dni = dni;
 	}
 
+	
+	// HASCODE & OVERRIDE
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognom, dni, nom);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(cognom, other.cognom) && Objects.equals(dni, other.dni) && Objects.equals(nom, other.nom);
+	}
+
 	// METODES
+	/*
 	@Override
 	public boolean equals(Object personaIn) {
 		// ACCIONS
@@ -48,5 +70,8 @@ public class Persona {
 			return false;
 		}
 	}
+	*/
 
+	
+	
 }

@@ -15,13 +15,13 @@ public class Main {
 		ArrayList<Restaurant> rests;
 		HashSet<Restaurant> restaurants = new HashSet<Restaurant>();
 
-		// ACCIONS		
-		restaurants.add(new Restaurant("La cabra maldita", 7));
+		// ACCIONS
+		restaurants.add(new Restaurant("Casa Pepe", 8));
 		restaurants.add(new Restaurant("La croqueta petra", 6));
 		restaurants.add(new Restaurant("Entra y no saldrás", 9));
 		restaurants.add(new Restaurant("El pescado mareado", 8));
-		restaurants.add(new Restaurant("Casa Pepe", 8));
 		restaurants.add(new Restaurant("Casa Pepe", 9));
+		restaurants.add(new Restaurant("La cabra maldita", 7));
 
 		System.out.println("*** ESTAT INICIAL DE LA LLISTA ***");
 		for (Restaurant restaurant : restaurants) {
@@ -31,8 +31,13 @@ public class Main {
 		System.out.println(text);
 
 		System.out.println("\r\n*** LLISTA ORDENADA ***");
+		// Canvi a ArrayList
 		rests = new ArrayList<Restaurant>(restaurants);
-		Collections.sort(rests, Comparator.comparing((Restaurant::getNom)));
+		// S'ordena
+		Collections.sort(rests, Comparator.comparing(Restaurant::getNom).thenComparing(Restaurant::getPuntuacio,
+				Comparator.reverseOrder()));
+
+		// SORTIDA
 		rests.stream().forEach(
 				e -> System.out.println(String.format("Nom: %-20s Puntuació: %s", e.getNom(), e.getPuntuacio())));
 

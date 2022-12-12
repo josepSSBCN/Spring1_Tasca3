@@ -1,9 +1,6 @@
 package ExcepcionsPackage;
 
 public class ErrorFitxerPaissos extends Exception {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public ErrorFitxerPaissos(String problema) {

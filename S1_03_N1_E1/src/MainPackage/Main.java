@@ -31,10 +31,10 @@ public class Main {
 		System.out.println("\r\n***CONVERSIÓ EN HASHSET***");
 		mesosAnyHashSet = new HashSet<Month>(mesosAny);
 		recorrerAmbFor(mesosAnyHashSet);
-		System.out.println("\r\nSi es prova d'afegir un duplicat, no l'afegeix i no dona error.");
+		System.out.println("\r\nSi es prova d'afegir un duplicat, més de Febrer, no l'afegeix i no dona error.");
 		mesosAnyHashSet.add(new Month("Febrer"));
 		recorreAmbIterator(mesosAnyHashSet);
-		System.out.println("\r\nPerò sí altres elements (Hola).");
+		System.out.println("\r\nPerò sí altres elements, p.ex. 'Hola'.");
 		mesosAnyHashSet.add(new Month("Hola"));
 		recorrerAmbFor(mesosAnyHashSet);
 		System.out.println("\r\nSi la col·leció té un duplicat, no s'afegeix");

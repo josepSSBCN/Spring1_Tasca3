@@ -37,12 +37,5 @@ public class WriteFile {
 			e.printStackTrace();
 		}
 
-		// SORTIDA
-
 	}
-
-	// GETTERS & SETTERS
-
-	// METODES
-
 }

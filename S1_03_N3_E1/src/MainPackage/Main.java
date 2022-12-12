@@ -13,7 +13,7 @@ public class Main {
 	public static void main(String[] args) {
 		// ACCIONS
 		iniciar();
-		
+
 		// SORTIDA
 		System.out.println("Programa finalitzat.");
 
@@ -48,7 +48,7 @@ public class Main {
 				case 1:
 					// No he trobat altre manera de fer-ho
 					persona = introduirPersona(persones);
-					if(persona != null) {
+					if (persona != null) {
 						persones.add(persona);
 					}
 					break;
@@ -162,11 +162,8 @@ public class Main {
 		// 1) S'ordena la llista
 		Collections.sort(persones, Comparator.comparing(Persona::getNom));
 
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
-
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 
 	}
 
@@ -178,14 +175,10 @@ public class Main {
 		text = "\r\n\r\nOPCIÓ 3: Mostrar les persones ordenades per nom (Z - A).\r\n";
 
 		// 1) S'ordena la llista
-		Collections.sort(persones, Comparator.comparing(Persona::getNom));
-		Collections.reverse(persones);
-
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
+		Collections.sort(persones, Comparator.comparing(Persona::getNom, Comparator.reverseOrder()));
 
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 
 	}
 
@@ -198,12 +191,9 @@ public class Main {
 
 		// 1) S'ordena la llista
 		Collections.sort(persones, Comparator.comparing(Persona::getCognom));
-
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
-
+		
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 
 	}
 
@@ -218,11 +208,8 @@ public class Main {
 		Collections.sort(persones, Comparator.comparing(Persona::getCognom));
 		Collections.reverse(persones);
 
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
-
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 	}
 
 	private static String ordenardni19(ArrayList<Persona> persones) {
@@ -235,11 +222,8 @@ public class Main {
 		// 1) S'ordena la llista
 		Collections.sort(persones, Comparator.comparing(Persona::getDni));
 
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
-
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 
 	}
 
@@ -251,14 +235,10 @@ public class Main {
 		text = "\r\n\r\nOPCIÓ 7: Mostrar les persones ordenades per DNI (9-1).\r\n";
 
 		// 1) S'ordena la llista
-		Collections.sort(persones, Comparator.comparing(Persona::getDni));
-		Collections.reverse(persones);
-
-		// 2) Es mostren els resultats
-		text = text + llistaPersones(persones);
+		Collections.sort(persones, Comparator.comparing(Persona::getDni, Comparator.reverseOrder()));
 
 		// SORTIDA
-		return text;
+		return text + llistaPersones(persones);
 
 	}
 
@@ -275,7 +255,7 @@ public class Main {
 		// ACCIONS
 		// 1) Capçalera
 		text = String.format("%-15s%-20s%s", "__Nom__", "__Cognom__", "__NIF__");
-		
+
 		// 2) Persones
 		for (Persona persona : persones) {
 			text = String.format("%s\r\n%-15s%-20s%s", text, persona.getNom(), persona.getCognom(), persona.getDni());
